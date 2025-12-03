@@ -67,8 +67,8 @@ def main():
     st.markdown("Please fill in all the required information to create your account.")
     st.markdown("---")
     
-    # Create tabs for Registration and View Users
-    tab1, tab2 = st.tabs(["Register", "View Users"])
+    # Create tabs for Registration, View Users, and SQL Schema
+    tab1, tab2, tab3 = st.tabs(["Register", "View Users", "SQL Schema"])
     
     with tab1:
         with st.form("registration_form", clear_on_submit=True):
