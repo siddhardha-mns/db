@@ -205,6 +205,52 @@ def main():
                 st.info("No users registered yet.")
         except Exception as e:
             st.error(f"Error fetching users: {str(e)}")
+    
+    with tab3:
+        st.subheader("📄 SQL Schema for Supabase")
+        st.markdown("Copy and paste this SQL schema into your Supabase SQL Editor to create the users table.")
+        
+        sql_schema = """-- Simple users table for Supabase
+CREATE TABLE users (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    username TEXT UNIQUE NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    phone TEXT NOT NULL,
+    password TEXT NOT NULL,
+    date_of_birth DATE NOT NULL,
+    gender TEXT,
+    country TEXT,
+    city TEXT,
+    address TEXT,
+    occupation TEXT,
+    newsletter_subscribed BOOLEAN DEFAULT FALSE,
+    is_active BOOLEAN DEFAULT TRUE,
+    is_verified BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Create indexes for faster searches
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_users_username ON users(username);"""
+        
+        st.code(sql_schema, language="sql")
+        
+        st.markdown("---")
+        st.markdown("### 🚀 Setup Instructions:")
+        st.markdown("""
+        1. Go to your Supabase project dashboard
+        2. Click on **SQL Editor** in the left sidebar
+        3. Click **New Query**
+        4. Copy the SQL code above
+        5. Paste it into the SQL Editor
+        6. Click **Run** (or press Ctrl/Cmd + Enter)
+        7. Your `users` table is ready to use!
+        """)
+        
+        st.info("💡 Tip: This schema must be executed in Supabase before using the registration form.")
 
 if __name__ == "__main__":
     main()
