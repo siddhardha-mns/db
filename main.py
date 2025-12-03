@@ -41,9 +41,12 @@ def validate_password(password):
 def register_user(user_data):
     try:
         response = supabase.table('users').insert(user_data).execute()
-        return True, "Registration successful!"
+        if response.data:
+            return True, "Registration successful!"
+        else:
+            return False, "Registration failed - no data returned"
     except Exception as e:
-        return False, f"Error: {str(e)}"
+        return False, f"Database Error: {str(e)}"
 
 def check_email_exists(email):
     try:
